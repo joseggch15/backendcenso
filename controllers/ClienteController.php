@@ -102,9 +102,11 @@ class ClienteController
         }
     }
 
+    /*
     public static function buscar()
     {
         $id = @$_REQUEST["id"];
+        $dni = @$_REQUEST["dni"];
 
         //Intentamos buscar la sucursal en la bd 
         try {
@@ -112,8 +114,8 @@ class ClienteController
 
             //Colocamos la sucursal en la sesion creada
             $_SESSION["persona.find"] = serialize($c);
-            $msg = "Persona encontrado";
-
+            $nombreCompleto = htmlspecialchars($c->nombre) . " " . htmlspecialchars($c->apellidos);
+            $msg = "Persona encontrada: $nombreCompleto";
             //Redir a la pagina buscar enviandole un mensaje 
             header("Location: ../view/clientes/buscar.php?msg=$msg");
             exit;
@@ -126,6 +128,47 @@ class ClienteController
 
             $_SESSION["persona.find"] = NULL;
             header("Location: ../view/clientes/buscar.php?msg=$msg");
+            exit;
+        }
+    }
+
+    */
+
+    public static function buscar()
+    {
+        $id = @$_REQUEST["id"];
+        $dni = @$_REQUEST["dni"];
+
+        try {
+            if (!empty($dni)) {
+                // Busca por DNI si el DNI es proporcionado
+                $c = Persona::find_by_dni($dni);
+            } elseif (!empty($id)) {
+                // Si no, busca por ID
+                $c = Persona::find($id);
+            } else {
+                // Si no se provee ni DNI ni ID, establece un mensaje de error
+                throw new Exception("No se proporcionó ID o DNI para la búsqueda.");
+            }
+
+            if ($c) {
+                // Si se encuentra la persona, guarda en la sesión y prepara el mensaje
+                $_SESSION["persona.find"] = serialize($c);
+                $nombreCompleto = htmlspecialchars($c->nombre) . " " . htmlspecialchars($c->apellidos);
+                $msg = "Persona encontrada: $nombreCompleto";
+            } else {
+                // Si no se encuentra, establece un mensaje de error
+                $msg = "No se encontró el cliente con el ID o DNI proporcionado";
+            }
+
+            header("Location: ../view/clientes/buscar.php?msg=" . urlencode($msg));
+            exit;
+
+        } catch (Exception $error) {
+            // En caso de un error en la búsqueda, prepara un mensaje de error
+            $msg = "Ocurrió un error al buscar el cliente: " . $error->getMessage();
+            $_SESSION["persona.find"] = NULL;
+            header("Location: ../view/clientes/buscar.php?msg=" . urlencode($msg));
             exit;
         }
     }
@@ -174,7 +217,7 @@ class ClienteController
         $c->edad = $edad;
         $c->estatura = $estatura;
         $c->sexo = $sexo;
-        $c->nivelestudios = $ $nivelestudios;
+        $c->nivelestudios = $$nivelestudios;
         $c->situacionmilitarid = $situacionmilitarid;
         $c->dni = $dni;
 

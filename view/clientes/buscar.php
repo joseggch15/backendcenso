@@ -1,11 +1,11 @@
 <?php
 //Msg del controlador: 
-    session_start();
+session_start();
 
-    require_once $_SERVER["DOCUMENT_ROOT"]."backendcenso/models/entities/Cliente.php";
-    $msg = @$_REQUEST["msg"];
-    $c = @$_SESSION["cliente.find"];
-    $c = unserialize($c); 
+require_once $_SERVER["DOCUMENT_ROOT"] . "backendcenso/models/entities/Cliente.php";
+$msg = @$_REQUEST["msg"];
+$c = @$_SESSION["cliente.find"];
+$c = unserialize($c);
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <script src = "../js/validaciones_cliente.js"></script> 
+    <script src="../js/validaciones_cliente.js"></script>
 </head>
 
 <body>
@@ -27,30 +27,28 @@
 
         <form action="../../controllers/ClienteController.php" method="POST">
             <table>
+                <!-- 
+<tr>
+  <th style="text-align: right;" class="encabezado">ID BASE DE DATO:</th>
+  <td><input type="text" id="id" name="id" value="<?= @$c->id ?>" required placeholder="Codigo del cliente"></td>
+</tr> 
+-->
                 <tr>
-                    <th style="text-align: right;" class="encabezado">CODIGO CLIENTE:</th>
-                    <td><input type="text" id="id" name="id" 
-                    value="<?= @$c->id?>" required placeholder="Codigo del cliente"></td>
+                    <th style="text-align: right;" class="encabezado">ID BASE DE DATO:</th>
+                    <td><input type="text" id="id" name="id" value="<?= @$c->id ?>"
+                            placeholder="Codigo del cliente"></td>
                 </tr>
-
+                <tr>
+                    <th style="text-align: right;" class="encabezado">DNI:</th>
+                    <td><input type="text" id="dni" name="dni" value="<?= @$c->dni ?>" placeholder="Ingrese DNI"></td>
+                </tr>
                 <tr>
                     <th style="text-align: right;" class="encabezado">NOMBRE:</th>
-                    <td><input type="text" id="nombre" name="nombre"
-                    value="<?= @$c->nombre?>"></td>
+                    <td><input type="text" id="nombre" name="nombre" value="<?= @$c->nombre ?>"
+                            placeholder="Ingrese Nombre"></td>
                 </tr>
 
-                <tr>
-                    <th style="text-align: right;" class="encabezado">CODIGO CLIENTE NATURAL:</th>
-                    <td><input type="text" id="nat" name="nat"
-                    value="<?= @$c->cliente_natural_id?>">
-                </td>
 
-                <tr>
-                    <th style="text-align: right;" class="encabezado">CODIGO ORGANIZACION:</th>
-                    <td><input type="text" id="org" name="org"
-                    value="<?= @$c->organizacion_id?>">
-                </td>                    
-                </tr>
 
 
                 <tr>
@@ -68,11 +66,14 @@
                 </tr>
             </table>
         </form>
-        <span><?= ($msg != NULL || isset($msg)) ? $msg : "" ?></span>
+        <span>
+            <?= ($msg != NULL || isset($msg)) ? $msg : "" ?>
+        </span>
     </center>
     <script>
         habilitarBotones();
         confirmarOperacion();
     </script>
 </body>
+
 </html>
