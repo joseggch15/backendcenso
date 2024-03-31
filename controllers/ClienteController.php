@@ -151,13 +151,13 @@ class ClienteController
         $id = @$_REQUEST["id"];
         $nombre = @$_REQUEST["nombre"];
         $apellidos = @$_REQUEST["apellidos"];
-        $fechaNacimiento = @$_REQUEST["fechaNacimiento"];
-        $lugarNacimientoID = @$_REQUEST["lugarNacimientoID"];
+        $fechanacimiento = @$_REQUEST["fechanacimiento"];
+        $lugarnacimientoid = @$_REQUEST["lugarnacimientoid"];
         $edad = @$_REQUEST["edad"];
         $estatura = @$_REQUEST["estatura"];
         $sexo = @$_REQUEST["sexo"];
-        $nivelEstudios = @$_REQUEST["nivelEstudios"];
-        $situacionMilitarID = @$_REQUEST["situacionMilitarID"];
+        $nivelestudios = @$_REQUEST["nivelestudios"];
+        $situacionmilitarid = @$_REQUEST["situacionmilitarid"];
         $dni = @$_REQUEST["dni"];
 
         //Lo colocamos en la sucursal buscada
@@ -169,13 +169,13 @@ class ClienteController
         $c->organizacion_id = !empty($organizacion_id) ? $organizacion_id : null;
         $c->nombre = $nombre;
         $c->apellidos = $apellidos;
-        $c->fechaNacimiento = $fechaNacimiento;
-        $c->LugarNacimientoID = $lugarNacimientoID;
+        $c->fechanacimiento = $fechanacimiento;
+        $c->LugarNacimientoid = $lugarnacimientoid;
         $c->edad = $edad;
         $c->estatura = $estatura;
         $c->sexo = $sexo;
-        $c->nivelEstudios = $ $nivelEstudios;
-        $c->situacionMilitarID = $situacionMilitarID;
+        $c->nivelestudios = $ $nivelestudios;
+        $c->situacionmilitarid = $situacionmilitarid;
         $c->dni = $dni;
 
 
@@ -247,4 +247,3 @@ class ClienteController
 }
 
 ClienteController::ejecutarAccion();
-?>
